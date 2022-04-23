@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, Product, ProductsService } from '@bluebits/products';
+import { Console } from 'console';
 import { MessageService } from 'primeng/api';
 import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -65,6 +66,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   }
 
   private _addProduct(productData: FormData) {
+    console.log("add")
     this.productsService
       .createProduct(productData)
       .pipe(takeUntil(this.endsubs$))
@@ -128,7 +130,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.endsubs$))
           .subscribe((product) => {
             this.productForm.name.setValue(product.name);
-            this.productForm.category.setValue(product.category.id);
+            this.productForm.category.setValue(product.category._id);
             this.productForm.brand.setValue(product.brand);
             this.productForm.price.setValue(product.price);
             this.productForm.countInStock.setValue(product.countInStock);
@@ -145,7 +147,15 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.form.invalid) return;
+    console.log(this.form.value)
+    if (this.form.invalid){
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Product was not created, fill in all fields!'
+      });
+      return;
+    } 
 
     const productFormData = new FormData();
     Object.keys(this.productForm).map((key) => {

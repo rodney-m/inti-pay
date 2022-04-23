@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -13,10 +13,11 @@ import { AccordionModule } from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OrdersModule } from '@bluebits/orders';
-import { JwtInterceptor, UsersModule } from '@bluebits/users';
+import { JwtInterceptor, UiLoader, UsersModule } from '@bluebits/users';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -41,9 +42,12 @@ const routes: Routes = [
     BrowserAnimationsModule,
     UiModule,
     OrdersModule,
-    UsersModule
+    UsersModule,
+    NgxUiLoaderModule.forRoot(UiLoader.load()),
+    NgxUiLoaderHttpModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, MessageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

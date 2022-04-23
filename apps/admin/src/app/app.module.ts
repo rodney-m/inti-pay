@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,7 +12,7 @@ import { ProductsListComponent } from './pages/products/products-list/products-l
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
-import { JwtInterceptor, UsersModule } from '@bluebits/users';
+import { JwtInterceptor, UiLoader, UsersModule } from '@bluebits/users';
 
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -39,6 +39,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+
 const UX_MODULE = [
   CardModule,
   ToastModule,
@@ -59,6 +61,7 @@ const UX_MODULE = [
 ];
 
 @NgModule({
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     SidebarComponent,
@@ -83,7 +86,9 @@ const UX_MODULE = [
     FormsModule,
     ReactiveFormsModule,
     UsersModule,
-    ...UX_MODULE
+    ...UX_MODULE,
+    NgxUiLoaderModule.forRoot(UiLoader.load()),
+    NgxUiLoaderHttpModule
   ],
   providers: [
     CategoriesService,

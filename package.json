@@ -46,6 +46,7 @@
     "angular2-qrcode": "^2.0.3",
     "animate.css": "^4.1.1",
     "i18n-iso-countries": "^6.6.0",
+    "ngx-ui-loader": "^13.0.0",
     "normalize.css": "^8.0.1",
     "primeflex": "^2.0.0",
     "primeicons": "^5.0.0",
