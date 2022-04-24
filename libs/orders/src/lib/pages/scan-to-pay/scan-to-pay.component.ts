@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class ScanToPayComponent implements OnInit {
   qrInfo : any;
-  constructor(private cartService : CartService) { }
+  constructor(private cartService : CartService, private router : Router, private activateRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
     this._getOrderData()
@@ -19,6 +20,10 @@ export class ScanToPayComponent implements OnInit {
     this.cartService.cart$.subscribe((cart) => {
       this.qrInfo = JSON.stringify(cart.items)
     })
+  }
+
+  navigateToCheckout(){
+    this.router.navigate(['checkout'])
   }
 
 }

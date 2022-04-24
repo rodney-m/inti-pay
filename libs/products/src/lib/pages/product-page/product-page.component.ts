@@ -41,6 +41,8 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.endSubs$))
     .subscribe(product => {
       this.product = product
+      console.log(product)
+      this.product.images.push(product.image)
     })
   }
 

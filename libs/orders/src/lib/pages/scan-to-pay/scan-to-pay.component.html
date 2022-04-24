@@ -1,2 +1,7 @@
-<p>scan-to-pay works!</p>
-<qr-code [value]="qrInfo" size="200"></qr-code>
+<div>
+
+    <qr-code [value]="qrInfo" size="200" class="col-md-8"></qr-code>
+    <div class="col-md-4" >
+        <p-button label="Done" (onClick)="navigateToCheckout()"></p-button>
+      </div>
+</div>
